@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: lang === "ar" ? "ar_EG" : "en_US",
       type: "website",
       siteName,
-      // Removed authors here
+      // The 'authors' line is deleted here!
     },
     twitter: {
       card: "summary_large_image",
