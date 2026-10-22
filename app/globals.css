@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-blood-deep: #3d0509;
+  --color-blood: #8f0d17;
+  --color-blood-bright: #d7202e;
+  --color-text-main: #f1e8e6;
+  --color-muted: #a3918e;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --font-body: var(--font-cairo), system-ui, sans-serif;
+  --font-display: var(--font-reem-kufi), var(--font-cairo), sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    @apply bg-black text-text-main antialiased;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-black font-body leading-[1.8] overflow-x-clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  blockquote {
+    @apply font-display;
+  }
+
+  a:focus-visible {
+    @apply outline-2 outline-blood-bright;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Hero embers */
+  .ember {
+    @apply absolute rounded-full bg-blood-bright opacity-0;
+    bottom: 8%;
+    width: var(--s);
+    height: var(--s);
+    animation: rise var(--d) linear var(--delay) infinite;
+  }
+
+  /* Scroll hint drip */
+  .scroll-hint i {
+    @apply block h-10 w-px;
+    background: linear-gradient(var(--color-blood-bright), transparent);
+    transform-origin: top;
+    animation: drip 2s ease-in-out infinite;
+  }
+
+  /* Intro animations */
+  .intro {
+    animation: intro 0.9s var(--ease-out-expo) both;
+  }
+  .intro-2 { animation-delay: 0.12s; }
+  .intro-3 { animation-delay: 0.26s; }
+
+  /* Progress bar RTL */
+  [dir="rtl"] .progress {
+    transform-origin: 100% 50% !important;
+  }
+
+  /* Chapter line RTL */
+  [dir="rtl"] .chapter-line {
+    transform-origin: 100% 50% !important;
+  }
+
+  /* Section title underline */
+  .section-title::after {
+    content: "";
+    @apply block h-[3px] w-16 bg-blood-bright;
+    margin-block-start: 0.8rem;
+  }
+}
+
+@keyframes rise {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(var(--x), -70vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes drip {
+  0% { transform: scaleY(0); }
+  60% { transform: scaleY(1); }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+@keyframes intro {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .ember,
+  .scroll-hint i {
+    animation: none;
+  }
+}
