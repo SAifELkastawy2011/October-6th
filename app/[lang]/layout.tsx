@@ -42,7 +42,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const authorName = "Saif Elkastawy";
   const siteName = lang === "ar" ? "أكتوبر ١٩٧٣" : "October 1973";
   const title = `${meta.title} — ${authorName}`;
-  const description = `${meta.description} ${lang === "ar" ? "مشروع من" : "A project by"} ${authorName}.`;
+  const description = `${meta.description} ${
+    lang === "ar" ? "مشروع من" : "A project by"
+  } ${authorName}.`;
 
   return {
     metadataBase: new URL("https://october-1973.vercel.app"),
@@ -75,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: lang === "ar" ? "ar_EG" : "en_US",
       type: "website",
       siteName,
-      authors: [authorName],
+      // REMOVED: authors: [authorName], (This is not allowed in OpenGraph)
     },
     twitter: {
       card: "summary_large_image",
