@@ -25,9 +25,9 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
   const reduce = useReducedMotion();
   const [isReady, setIsReady] = useState(false);
 
-  // DEFER HYDRATION: Wait for initial paint to finish before attaching scroll listeners
+  // Wait for the initial load to finish before attaching scroll listeners
   useEffect(() => {
-    const timer = setTimeout(() => setIsReady(true), 150);
+    const timer = setTimeout(() => setIsReady(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -37,6 +37,7 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
     target: ref,
     offset: ["start start", "end start"],
   });
+  
   const sunY = useTransform(scrollYProgress, [0, 1], [0, 260 * k]);
   const sunScale = useTransform(scrollYProgress, [0, 1], [1, 1 + 0.3 * k]);
   const farY = useTransform(scrollYProgress, [0, 1], [0, 150 * k]);
@@ -54,8 +55,7 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
         style={{
           y: isReady ? sunY : 0,
           scale: isReady ? sunScale : 1,
-          background:
-            "radial-gradient(circle, rgba(215,32,46,0.55), rgba(143,13,23,0.22) 42%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(215,32,46,0.55), rgba(143,13,23,0.22) 42%, transparent 70%)",
           willChange: isReady ? "transform" : "auto",
         }}
         aria-hidden
@@ -68,27 +68,12 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
         style={{ y: isReady ? farY : 0, willChange: isReady ? "transform" : "auto" }}
         aria-hidden
       >
-        <path
-          className="fill-[#1b0406]"
-          d="M0 250 C180 170 360 290 600 230 S1020 150 1440 250 V400 H0Z"
-        />
+        <path className="fill-[#1b0406]" d="M0 250 C180 170 360 290 600 230 S1020 150 1440 250 V400 H0Z" />
       </m.svg>
 
       <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
         {embers.map((e, i) => (
-          <span
-            key={i}
-            className="ember"
-            style={
-              {
-                left: e.left,
-                "--s": `${e.size}px`,
-                "--d": `${e.duration}s`,
-                "--delay": `${e.delay}s`,
-                "--x": `${e.drift}px`,
-              } as CSSProperties
-            }
-          />
+          <span key={i} className="ember" style={{ left: e.left, "--s": `${e.size}px`, "--d": `${e.duration}s`, "--delay": `${e.delay}s`, "--x": `${e.drift}px` } as CSSProperties} />
         ))}
       </div>
 
@@ -99,10 +84,7 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
         style={{ y: isReady ? nearY : 0, willChange: isReady ? "transform" : "auto" }}
         aria-hidden
       >
-        <path
-          className="fill-black"
-          d="M0 320 C240 250 420 350 700 300 S1180 240 1440 320 V400 H0Z"
-        />
+        <path className="fill-black" d="M0 320 C240 250 420 350 700 300 S1180 240 1440 320 V400 H0Z" />
       </m.svg>
 
       <m.div
@@ -117,18 +99,11 @@ export default function Hero({ date, hijri, title, subtitle, scroll }: Props) {
           <span>{date}</span>
           <span>{hijri}</span>
         </p>
-        <h1 className="intro intro-2 text-[clamp(4.5rem,19vw,15rem)] font-bold leading-[1.05]">
-          {title}
-        </h1>
-        <p className="intro intro-3 mx-auto mt-4 max-w-[30rem] text-[clamp(1.05rem,2.4vw,1.4rem)] text-muted">
-          {subtitle}
-        </p>
+        <h1 className="intro intro-2 text-[clamp(4.5rem,19vw,15rem)] font-bold leading-[1.05]">{title}</h1>
+        <p className="intro intro-3 mx-auto mt-4 max-w-[30rem] text-[clamp(1.05rem,2.4vw,1.4rem)] text-muted">{subtitle}</p>
       </m.div>
 
-      <span
-        className="scroll-hint absolute inset-x-0 bottom-6 z-[4] flex flex-col items-center gap-2 text-[0.85rem] text-muted"
-        aria-hidden
-      >
+      <span className="scroll-hint absolute inset-x-0 bottom-6 z-[4] flex flex-col items-center gap-2 text-[0.85rem] text-muted" aria-hidden>
         {scroll}
         <i />
       </span>
