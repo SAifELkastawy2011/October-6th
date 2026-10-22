@@ -50,7 +50,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL("https://october-1973.vercel.app"),
     title,
     description,
-    authors: [{ name: authorName, url: "https://saifelkastawy.com" }],
     creator: authorName,
     publisher: authorName,
     keywords: [
