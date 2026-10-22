@@ -40,7 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { meta } = content[lang];
   const authorName = "Saif Elkastawy";
-  const siteName = lang === "ar" ? "أكتوبر ١٩٧٣" : "October 1973";
   const title = `${meta.title} — ${authorName}`;
   const description = `${meta.description} ${
     lang === "ar" ? "مشروع من" : "A project by"
@@ -50,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL("https://october-1973.vercel.app"),
     title,
     description,
+    authors: [{ name: authorName, url: "https://saifelkastawy.com" }],
     creator: authorName,
     publisher: authorName,
     keywords: [
@@ -69,14 +69,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: `/${lang}`,
       languages: { ar: "/ar", en: "/en" },
-    },
-    openGraph: {
-      title,
-      description,
-      locale: lang === "ar" ? "ar_EG" : "en_US",
-      type: "website",
-      siteName,
-      // The 'authors' line is deleted here!
     },
     twitter: {
       card: "summary_large_image",
