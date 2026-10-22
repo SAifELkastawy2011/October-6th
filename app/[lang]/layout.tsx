@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: lang === "ar" ? "ar_EG" : "en_US",
       type: "website",
       siteName,
-      // REMOVED: authors: [authorName], (This is not allowed in OpenGraph)
+      // Removed authors here
     },
     twitter: {
       card: "summary_large_image",
